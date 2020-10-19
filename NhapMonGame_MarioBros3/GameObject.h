@@ -55,6 +55,7 @@ public:
 	float vy;
 
 	int nx;
+	int last_nx;
 
 	int state;
 

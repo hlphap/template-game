@@ -138,8 +138,10 @@ void CMarioGeneral::SetLevel(int lv)
 	level = lv;
 }
 
-//CMarioGeneral* CMarioGeneral::GetInstance()
-//{
-//	if (__instance == NULL) __instance = new CMarioGeneral();
-//	return __instance;
-//}
+CMarioGeneral* CMarioGeneral::__instance = NULL;
+
+CMarioGeneral* CMarioGeneral::GetInstance()
+{
+	if (__instance == NULL) __instance = new CMarioGeneral();
+	return __instance;
+}

@@ -19,7 +19,7 @@
 #include "Game.h"
 #include "GameObject.h"
 #include "Textures.h"
-
+ 
 #include "Mario.h"
 #include "Brick.h"
 #include "Goomba.h"
@@ -33,9 +33,10 @@
 #define SCREEN_WIDTH 320
 #define SCREEN_HEIGHT 240
 
-#define MAX_FRAME_RATE 60
+#define MAX_FRAME_RATE 120
 
 CGame* game;
+
 
 LRESULT CALLBACK WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {

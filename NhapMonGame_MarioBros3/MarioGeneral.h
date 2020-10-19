@@ -2,27 +2,27 @@
 #include <vector>
 #include <istream>
 
-#define MARIO_WALKING_DECELERATION						0.0003f
-#define MARIO_WALKING_ACCELERATION						0.0002f
+#define MARIO_WALKING_DECELERATION						0.0002f
+#define MARIO_WALKING_ACCELERATION						0.0006f
 #define MARIO_WALKING_MAX_SPEED							0.15f
 
-#define MARIO_RUNNING_DECELERATION						0.0006f
-#define MARIO_RUNNING_ACCELERATION						0.0004f
+#define MARIO_RUNNING_DECELERATION						0.00525f
+#define MARIO_RUNNING_ACCELERATION						0.00006f
 #define MARIO_RUNNING_MAX_SPEED							0.25f
 
 
 
 
 #define FRICTION										0.0016875f
-#define MARIO_JUMP_SPEED_Y								0.2f
-#define MARIO_JUMP_MAX_SPEED_Y							0.3f
+#define MARIO_JUMP_SPEED_Y								0.25f
+#define MARIO_JUMP_MAX_SPEED_Y							0.00015f
 #define MARIO_JUMP_DEFLECT_SPEED						0.2f
-#define MARIO_GRAVITY									0.002f
+#define MARIO_GRAVITY									0.0006f
 #define MARIO_DIE_DEFLECT_SPEED							0.5f
 #define MARIO_STATE_IDLE								0
 #define MARIO_STATE_WALKING_RIGHT						100
 #define MARIO_STATE_WALKING_LEFT						200
-#define MARIO_STATE_JUMP								300
+#define MARIO_STATE_JUMPING								300
 #define MARIO_ANI_SHORT_JUMP							301
 #define MARIO_STATE_BIG_TAIL_KEEP_JUMP					302
 #define MARIO_STATE_DIE									400
@@ -143,10 +143,12 @@
 
 //================================ANOTHER CONSTANT ZONE=================================
 #define MARIO_UNTOUCHABLE_TIME							5000
+#define MARIO_RATIO_SPEED_WHEN_SPEEDUP					0.4f
+#define MARIO_RATIO_SPEED_WHEN_SPEEDMAX					0.2f
 using namespace std;
 class CMarioGeneral
 {
-	//static CMarioGeneral* __instance;
+	static CMarioGeneral* __instance;
 	int level;
 public:
 	CMarioGeneral();
@@ -156,6 +158,6 @@ public:
 	void LoadListAni();
 	int GetAni_Mario(int index);
 	void SetLevel(int lv);
-//	static CMarioGeneral* GetInstance();
+	static CMarioGeneral* GetInstance();
 };
 

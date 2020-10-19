@@ -291,7 +291,28 @@ void CPlayScene::Unload()
 
 void CPlayScenceKeyHandler::OnKeyDown(int KeyCode)
 {
-
+	CMario* mario = ((CPlayScene*)scence)->GetPlayer();
+	switch (KeyCode)
+	{
+	case DIK_S:
+		if (!mario->GetJump())
+		{
+			mario->Jump();
+		}
+		break;
+	case DIK_R:
+		mario->Reset();
+		break;
+	case DIK_1:
+		mario->SetLevel(MARIO_LEVEL_SMALL);
+		break;
+	case DIK_2:
+		mario->SetLevel(MARIO_LEVEL_BIG);
+		break;
+	case DIK_3:
+		mario->SetLevel(MARIO_LEVEL_BIG_TAIL);
+		break;
+	}
 }
 void CPlayScenceKeyHandler::OnKeyUp(int KeyCode)
 {
@@ -300,6 +321,16 @@ void CPlayScenceKeyHandler::OnKeyUp(int KeyCode)
 	{
 	case DIK_A:
 		mario->SetSpeedUp(false);
+		break;
+	case DIK_S:
+		DebugOut(L"\nLevel: %d ", mario->level);
+		if ((mario->isJumping) && (mario->level == MARIO_LEVEL_BIG_TAIL))			
+		{
+			mario->SetIsFalling(true);
+			mario->vy = -MARIO_GRAVITY * mario->dt;  //HC
+			break;
+		} 
+		mario->vy = mario->vy + MARIO_GRAVITY * mario->dt * 10;
 		break;
 	}
 }
@@ -313,22 +344,32 @@ void CPlayScenceKeyHandler::KeyState(BYTE* states)
 	if (mario->GetState() == MARIO_STATE_DIE) return;
 
 	//Control
-	//Mario Go Right
+	
 	if (game->IsKeyDown(DIK_A))
 	{
-		mario->SetSpeedUp(true);
+			mario->SetSpeedUp(true);
 	}
-
+	//Mario Go Right
 	if (game->IsKeyDown(DIK_RIGHT))
 	{
+		if ((mario->last_nx == -1)&&(!mario->GetJump())&&(mario->Getvx()<-0.1f))
+		{
+			mario->Stop();
+		}
 		mario->Right();
 		mario->Go();
+	
 	}
 	//Mario Go Left
 	else if (game->IsKeyDown(DIK_LEFT))
 	{
+		if ((mario->last_nx == 1)&&(!mario->GetJump()) && (mario->Getvx() > 0.1f))
+		{
+			mario->Stop();
+		}
 		mario->Left();
 		mario->Go();
+	
 	}
 	else if (game->IsKeyDown(DIK_DOWN))
 	{
@@ -337,4 +378,6 @@ void CPlayScenceKeyHandler::KeyState(BYTE* states)
 	// Mario Idle
 	else
 		mario->Idle();
+
+	
 }

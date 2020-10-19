@@ -43,6 +43,7 @@
 
 class CMario : public CGameObject
 {
+public:
 	int level;
 
 	int untouchable;
@@ -52,11 +53,15 @@ class CMario : public CGameObject
 	float start_y;
 
 	float last_vx;
+	
 
 	bool isJumping = false;
 	bool isSitting = false;
+	bool isSpeedUping = false;
 	bool isSpeedUp = false;
-
+	bool isSpeedMax = false;
+	bool isStop = false;
+	bool isFalling = false;
 
 public:
 	CMario(float x = 0.0f, float y = 0.0f);
@@ -67,10 +72,13 @@ public:
 	void DecreaseSpeed(float speedDown);
 	void SetState(int state);
 	void SetLevel(int l) { level = l; }
+	void SetIsFalling(bool f) { isFalling = f; }
 	void StartUntouchable() { untouchable = 1; untouchable_start = GetTickCount(); }
 
 	int GetLevel() { return level; };
-	int GetSpeeUp() { return isSpeedUp; }
+	float Getvx() { return vx; }
+	bool GetSpeeUp() { return isSpeedUp; }
+	bool GetJump() { return isJumping; }
 	void SetSpeedUp(bool statespeed) { isSpeedUp = statespeed; }
 	void Reset();
 
@@ -81,5 +89,6 @@ public:
 	void Jump();
 	void Sit();
 	void Idle();
-	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
+	void Stop();
+	void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 };
